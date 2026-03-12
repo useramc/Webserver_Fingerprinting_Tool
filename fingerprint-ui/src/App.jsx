@@ -20,7 +20,7 @@ function App() {
   const scan = async () => {
     const filtered = targets.filter(t => t.trim() !== "");
 
-    const res = await axios.post("http://localhost:5000/scan", {
+    const res = await axios.post("http://10.1.20.71:5000/scan", {
       targets: filtered
     });
 

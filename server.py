@@ -7,9 +7,6 @@ import re
 app = Flask(__name__)
 CORS(app)
 
-# ----------------------------------------
-# HTTP banner
-# ----------------------------------------
 def http_banner(host, port=80):
 
     try:
@@ -31,9 +28,7 @@ def http_banner(host, port=80):
         return None
 
 
-# ----------------------------------------
-# HTTPS banner
-# ----------------------------------------
+
 def https_banner(host, port=443):
 
     try:
@@ -57,9 +52,6 @@ def https_banner(host, port=443):
         return None
 
 
-# ----------------------------------------
-# Extract server
-# ----------------------------------------
 def extract_server(response):
 
     if not response:
@@ -70,15 +62,13 @@ def extract_server(response):
     return headers
 
 
-# ----------------------------------------
-# Extract version
-# ----------------------------------------
+
 def extract_version(header_text):
 
     if not header_text:
         return "Unknown"
 
-    # look for version numbers like 1.2.3
+   
     match = re.search(r"\d+\.\d+(\.\d+)?", header_text)
 
     if match:
@@ -86,9 +76,6 @@ def extract_version(header_text):
 
     return "Unknown"
 
-# ----------------------------------------
-# Detect server type
-# ----------------------------------------
 def detect_server(headers):
 
     h = headers.lower()
@@ -122,8 +109,7 @@ def detect_server(headers):
 
     return "Unknown"
 
-# ----------------------------------------
-# Scan website
+
 def scan_website(host):
 
     response = https_banner(host)
@@ -145,9 +131,7 @@ def scan_website(host):
         "version": version
     }
 
-# ----------------------------------------
-# API ROUTE
-# ----------------------------------------
+
 @app.route("/scan", methods=["POST"])
 def scan():
 
@@ -164,4 +148,4 @@ def scan():
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(host="0.0.0.0",port=5000)
