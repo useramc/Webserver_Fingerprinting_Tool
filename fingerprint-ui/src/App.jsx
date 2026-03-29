@@ -2,11 +2,27 @@ import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
+import { useEffect } from "react";
+
+
+
 function App() {
 
   const [targets, setTargets] = useState([""]);
   const [results, setResults] = useState([]);
 
+  useEffect(() => {
+  const interval = setInterval(async () => {
+    try {
+      const res = await axios.get("http://10.1.0.30:5000/results");
+      setResults(res.data);
+    } catch (err) {
+      console.log("Polling error:", err);
+    }
+  }, 2000);
+
+  return () => clearInterval(interval);
+}, []);
   const handleChange = (index, value) => {
     const updated = [...targets];
     updated[index] = value;
@@ -19,13 +35,17 @@ function App() {
 
   const scan = async () => {
     const filtered = targets.filter(t => t.trim() !== "");
-
-    const res = await axios.post("http://10.1.20.71:5000/scan", {
+    //
+   try {
+    const res = await axios.post("http://10.1.0.30:5000/scan", {
       targets: filtered
     });
 
     setResults(res.data);
-  };
+  } catch (err) {
+    console.log("Scan error:", err);
+  }
+};
 
   return (
     <div className="page">
@@ -68,7 +88,7 @@ function App() {
         {/* RIGHT PANEL */}
         <div className="panel resultsPanel">
 
-          <h2>Scan Results</h2>
+          <h2>Scan Results History</h2>
 
           <table>
 
