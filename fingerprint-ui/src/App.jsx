@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
   const interval = setInterval(async () => {
     try {
-      const res = await axios.get("http://192.168.0.103:5000/results");
+      const res = await axios.get("http://10.1.22.153:5000/results"); 
       setResults(res.data);
     } catch (err) {
       console.log("Polling error:", err);
@@ -37,7 +37,7 @@ function App() {
     const filtered = targets.filter(t => t.trim() !== "");
     //
    try {
-    const res = await axios.post("http://192.168.0.103:5000/scan", {
+    const res = await axios.post("http://10.1.22.153:5000/scan", {
       targets: filtered
     });
 

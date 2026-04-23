@@ -133,7 +133,7 @@ def start_server():
     sock.bind((HOST, PORT))
     sock.listen(5)
 
-    print(f"🔒 Secure Server running on port {PORT}...\n")
+    print(f"Secure Server running on port {PORT}...\n")
 
     while True:
         client_sock, addr = sock.accept()

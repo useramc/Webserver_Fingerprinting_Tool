@@ -9,7 +9,7 @@ import threading
 app = Flask(__name__)
 CORS(app)
 
-# 🔥 Shared storage (IMPORTANT)
+#  Shared storage (IMPORTANT)
 shared_results = []
 
 # -----------------------------
@@ -116,13 +116,13 @@ def handle_socket_client(conn):
 
 def socket_server():
     HOST = "0.0.0.0"
-    PORT = 9999
+    PORT = 9998
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((HOST, PORT))
     server.listen(5)
 
-    print("Socket server running on 9999...")
+    print("Socket server running on 9998...")
 
     while True:
         conn, addr = server.accept()
@@ -144,12 +144,12 @@ def api_scan():
     for t in targets:
         r = scan_website(t)
         results.append(r)
-        shared_results.append(r)   # 🔥 STORE
+        shared_results.append(r)   # 
 
     return jsonify(results)
 
 
-# 🔥 NEW: Get ALL results
+#  NEW: Get ALL results
 @app.route("/results", methods=["GET"])
 def get_results():
     return jsonify(shared_results)

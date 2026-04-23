@@ -2,7 +2,7 @@ import socket
 import ssl
 import json
 
-SERVER_IP = "192.168.0.103"   # change if different device
+SERVER_IP = "10.1.22.153"   # change if different device 
 PORT = 9999
 
 
@@ -22,7 +22,7 @@ def get_targets():
 
 
 def send_request(targets):
-    context = ssl._create_unverified_context()   # 🔥 FIX
+    context = ssl._create_unverified_context()   
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client = context.wrap_socket(sock, server_hostname=SERVER_IP)
